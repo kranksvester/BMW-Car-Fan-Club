@@ -70,10 +70,6 @@ p {
   letter-spacing: 1px;
 }
 
-.test-clear {
-  clear: both;
-}
-
 figure {
   padding: 0.5em;
   margin: 0 1em 0.5em 1em;
@@ -88,16 +84,23 @@ img {
   width: 100%;
 }
 
-footer p {
-  text-align: center;
+footer {
+  background-color: #000;
+  padding: 0.5em;
+  clear: both;
 }
 
-footer a {
-  padding: 64px;
+footer p {
+  text-align: center;
+  color: white;
+}
+
+footer img {
+  width: 20px;
 }
 
 .github-logo {
-  background-image: url('../icons/github/GitHub-Mark/PNG/GitHub-Mark-64px.png');
+  background-image: url('../icons/github/GitHub-Mark/PNG/GitHub-Mark-Light-32px.png');
   background-repeat: no-repeat;
   background-position: center;
   height: 64px;
