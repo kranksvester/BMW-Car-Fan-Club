@@ -5,3 +5,42 @@ html {
   margin: 0;
   font-size: 1rem;
 }
+
+body {
+  width: 100%;
+}
+
+header {
+  background-color: #000;
+  display: block;
+}
+
+.bmw-logo {
+  background-image: url('../images/bmw50years.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 504px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #555;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1.2rem 1.4rem;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: #222;
+}
