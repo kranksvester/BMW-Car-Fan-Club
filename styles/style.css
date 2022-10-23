@@ -162,9 +162,25 @@ input[type='submit']:hover {
   background-color: #16588e;
 }
 
+#gallery figure {
+  padding: 0.5em;
+  margin: 0 1em 0.5em 1em;
+  width: 30%;
+  border: 1px dashed 000056;
+}
+#gallery figcaption {
+  margin-top: 10px;
+  font-size: 90%;
+  height: 50px;
+  text-align: center;
+}
+
 @media screen and (max-width: 900px) {
   figure {
     width: 90%;
     margin: 1em;
+  }
+  #gallery figure {
+    width: 100%;
   }
 }
