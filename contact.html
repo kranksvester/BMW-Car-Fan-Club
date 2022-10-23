@@ -40,46 +40,60 @@
       </ul>
     </nav>
     <main>
-      <h1>BMW 50 years m anniversary</h1>
-      <figure>
-        <img
-          src="images/50yearsbmw_book.webp"
-          alt="BMW 50 years m book"
-          title="BMW 50 years m book"
-        />
-        <figcaption>
-          Exclusive insights, interviews, photos and much more are featured in
-          the new book "BMW M Love".
-        </figcaption>
-      </figure>
-      <div>
-        <p>
-          On our 50th anniversary we are celebrating five decades of fascinating
-          history with a great community.
-        </p>
-        <p>
-          We dedicate this jubilee not only to our numerous successes, but above
-          all to our enthusiastic fans, drivers and all M enthusiasts.
-        </p>
-        <p>
-          A new era is beginning, an era of emotion, electrification and
-          powerful technologies. Our very own interpretation of performance,
-          electrification and expressive lifestyle will shape BMW M in the
-          future.
-        </p>
-        <p>
-          In addition to numerous product launches and events, we have a few
-          surprises in store throughout the year. The 50th anniversary kicks off
-          with the "Huddle Speech". WE ARE M.
-        </p>
-        <p>
-          Source:
-          <a
-            href="https://www.bmw-m.com/en/topics/50-jahre-bmw-m.html"
-            target="_blank"
-            >BMW-m</a
-          >
-        </p>
+      <h1>Contact Form</h1>
+      <div id="contact">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2781.3818143615326!2d15.9366931!3d45.8036112!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2shr!4v1666549882835!5m2!1sen!2shr"
+          width="100%"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <form
+          action="send-form.php"
+          id="contact_form"
+          name="contact_form"
+          method="POST"
+        >
+          <label for="fname">First Name:</label>
+          <input
+            type="text"
+            id="fname"
+            name="firstname"
+            placeholder="Your first name..."
+            required
+          />
+
+          <label for="lname">Last Name:</label>
+          <input
+            type="text"
+            id="lname"
+            name="lastname"
+            placeholder="Your last name..."
+            required
+          />
+
+          <label for="lname">Your E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your e-mail..."
+            required
+          />
+
+          <label for="subject">Subject</label>
+          <textarea
+            id="subject"
+            name="subject"
+            placeholder="Write something..."
+            style="height: 200px"
+          ></textarea>
+
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     </main>
     <footer>
