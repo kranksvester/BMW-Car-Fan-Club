@@ -32,11 +32,11 @@
     </header>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="news.html">News</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="about-us.html">About</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="news.php">News</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="about-us.php">About</a></li>
+        <li><a href="gallery.php">Gallery</a></li>
       </ul>
     </nav>
     <main class="d-flex flex-column">
