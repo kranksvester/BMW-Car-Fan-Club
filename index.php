@@ -7,6 +7,9 @@
   #ini_set('display_startup_errors', 1);
   #error_reporting(E_ALL);
 
+  # Start session
+  session_start();
+
   # Database connection
 	include ("dbc.php");
 
@@ -18,6 +21,9 @@
     if(!isset($_POST['_action_']))  { $_POST['_action_'] = FALSE;  }
 	
 	if (!isset($menu)) { $menu = 1; }
+
+  # Classes & Functions
+  include_once("functions.php");
 
   print'
 <!DOCTYPE html>
@@ -38,6 +44,11 @@
       print ' class="d-flex flex-column"'; 
     }
     print'>';
+
+    if (isset($_SESSION['message'])) {
+			print $_SESSION['message'];
+			unset($_SESSION['message']);
+		}
 
     // Homepage
     if (!isset($menu) || $menu == 1) {
@@ -62,6 +73,14 @@
     // Register
     else if ($menu == 6) { 
       include("register.php"); 
+    }
+    // Sign In
+    else if ($menu == 7) { 
+      include("sign-in.php"); 
+    }
+    // Sign In
+    else if ($menu == 8) { 
+      include("admin.php"); 
     }
 
     print '</main>';
