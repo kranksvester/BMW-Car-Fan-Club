@@ -120,7 +120,8 @@ figure img {
 #register,
 #signin,
 #news_form_edit,
-#news_form {
+#news_form,
+#registration_form {
   margin: 1em;
 }
 

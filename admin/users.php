@@ -49,8 +49,7 @@
 		$_row = @mysqli_fetch_array($_result);
 		print '
 		<p><b>Country:</b> ' .$_row['nicename'] . '</p>
-		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>
-		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>';
 	}
 	#Edit user profile
 	else if (isset($_GET['edit']) && $_GET['edit'] != '') {
@@ -66,21 +65,21 @@
 			<input type="hidden" id="_action_" name="_action_" value="TRUE">
 			<input type="hidden" id="edit" name="edit" value="' . $_GET['edit'] . '">
 			
-			<label for="fname">First Name *</label>
+			<label for="fname">First Name:</label>
 			<input type="text" id="fname" name="firstname" value="' . $row['firstname'] . '" placeholder="Your name.." required>
 
-			<label for="lname">Last Name *</label>
+			<label for="lname">Last Name:</label>
 			<input type="text" id="lname" name="lastname" value="' . $row['lastname'] . '" placeholder="Your last natme.." required>
 				
-			<label for="email">Your E-mail *</label>
+			<label for="email">Your E-mail:</label>
 			<input type="email" id="email" name="email"  value="' . $row['email'] . '" placeholder="Your e-mail.." required>
 			
-			<label for="username">Username *<small>(Username must have min 5 and max 10 char)</small></label>
+			<label for="username">Username:<small>(Username must have min 5 and max 10 char)</small></label>
 			<input type="text" id="username" name="username" value="' . $row['username'] . '" pattern=".{5,10}" placeholder="Username.." required><br>
 			
-			<label for="country">Country</label>
+			<label for="country">Country:</label>
 			<select name="country" id="country">
-				<option value="">molimo odaberite</option>';
+				<option value="">Please select</option>';
 				#Select all countries from database webprog, table countries
 				$_query  = "SELECT * FROM countries";
 				$_result = @mysqli_query($dbc, $_query);
@@ -93,14 +92,11 @@
 			</select>
 			
 			<label for="archive">Archive:</label><br />
-            <input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> YES &nbsp;&nbsp;
-			<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> NO
-			
+            <input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> Yes &nbsp;&nbsp;
+			<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> No
 			<hr>
-			
 			<input type="submit" value="Submit">
-		</form>
-		<p><a href="index.php?menu='.$menu.'&amp;action='.$action.'">Back</a></p>';
+		</form>';
 	}
 	else {
 		print '
