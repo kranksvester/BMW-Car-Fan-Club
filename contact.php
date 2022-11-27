@@ -1,6 +1,6 @@
 <?php
   print'
-      <h1>Contact Form</h1>
+      <h1>Contact</h1>
       <div id="contact">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2781.3818143615326!2d15.9366931!3d45.8036112!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2shr!4v1666549882835!5m2!1sen!2shr"
@@ -44,7 +44,7 @@
             required
           />
 
-          <label for="subject">Subject</label>
+          <label for="subject">Subject:</label>
           <textarea
             id="subject"
             name="subject"

@@ -1,4 +1,24 @@
 <?php
+
+  # Stop Hacking attempt
+  define('__APP__', TRUE);
+    
+  #ini_set('display_errors', 1);
+  #ini_set('display_startup_errors', 1);
+  #error_reporting(E_ALL);
+
+  # Database connection
+	include ("dbc.php");
+
+  # Variables MUST BE INTEGERS
+  if(isset($_GET['menu'])) { $menu   = (int)$_GET['menu']; }
+	if(isset($_GET['action'])) { $action   = (int)$_GET['action']; }
+	
+	# Variables MUST BE STRINGS A-Z
+    if(!isset($_POST['_action_']))  { $_POST['_action_'] = FALSE;  }
+	
+	if (!isset($menu)) { $menu = 1; }
+
   print'
 <!DOCTYPE html>
 <html>';
@@ -10,39 +30,40 @@
       <div class="bmw-logo"></div>
     </header>';
     print'
-    <nav>
-      <ul>
-        <li><a href="index.php?menu=1">Home</a></li>
-        <li><a href="index.php?menu=2">News</a></li>
-        <li><a href="index.php?menu=3">Contact</a></li>
-        <li><a href="index.php?menu=4">About</a></li>
-        <li><a href="index.php?menu=5">Gallery</a></li>
-      </ul>
-    </nav>
+    <nav>';
+      include 'menu.php';
+    print '</nav>
     <main'; 
-    if ($_GET['menu'] == 2) { print ' class="d-flex flex-column"'; }
+    if ($menu == 2) { 
+      print ' class="d-flex flex-column"'; 
+    }
     print'>';
 
     // Homepage
-    if (!isset($_GET['menu']) || $_GET['menu'] == 1) {
+    if (!isset($menu) || $menu == 1) {
       include 'home.php';
     }
     // News
-    else if ($_GET['menu'] == 2) { 
+    else if ($menu == 2) { 
       include("news.php"); 
     }
     // Contact
-    else if ($_GET['menu'] == 3) { 
+    else if ($menu == 3) { 
       include("contact.php"); 
     }
     // About us
-    else if ($_GET['menu'] == 4) { 
+    else if ($menu == 4) { 
       include("about-us.php"); 
     }
     // Gallery
-    else if ($_GET['menu'] == 5) { 
+    else if ($menu == 5) { 
       include("gallery.php"); 
     }
+    // Register
+    else if ($menu == 6) { 
+      include("register.php"); 
+    }
+
     print '</main>';
     // Footer
     include 'footer.php';
