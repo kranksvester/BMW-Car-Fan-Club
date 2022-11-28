@@ -1,12 +1,27 @@
 <?php 
 	
+	$loggedInUserRole=$_SESSION['user']['role'];
+
 	#Add news
 	if (isset($_POST['_action_']) && $_POST['_action_'] == 'add_news') {
 		$_SESSION['message'] = '';
 		# htmlspecialchars — Convert special characters to HTML entities
 		# http://php.net/manual/en/function.htmlspecialchars.php
-		$query  = "INSERT INTO news (title, description, archive)";
-		$query .= " VALUES ('" . htmlspecialchars($_POST['title'], ENT_QUOTES) . "', '" . htmlspecialchars($_POST['description'], ENT_QUOTES) . "', '" . $_POST['archive'] . "')";
+
+		$col = "title, description";
+
+		if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+			$col .= "', archive'";
+		}
+
+		$query  = "INSERT INTO news ($col)";
+		$query .= " VALUES ('" . htmlspecialchars($_POST['title'], ENT_QUOTES) . "', '" . htmlspecialchars($_POST['description'], ENT_QUOTES) . "'";
+
+		if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+			$query .= "', '" . $_POST['archive'] . "'";
+		}
+
+		$query .= ")";
 		$result = @mysqli_query($dbc, $query); var_dump($query); exit();
 		
 		$ID = mysqli_insert_id($dbc);
@@ -126,12 +141,15 @@
 			<textarea id="description" name="description" placeholder="News description.." required></textarea>
 				
 			<label for="picture">Picture:</label>
-			<input type="file" id="picture" name="picture">
-						
+			<input type="file" id="picture" name="picture">';
+
+			if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+				print '	
 			<label for="archive">Archive:</label><br />
             <input type="radio" name="archive" value="Y"> Yes &nbsp;&nbsp;
-			<input type="radio" name="archive" value="N" checked> No
-			
+			<input type="radio" name="archive" value="N" checked> No';
+			}
+			print '
 			<hr>
 			
 			<input type="submit" value="Submit">
@@ -158,12 +176,16 @@
 			<textarea id="description" name="description" placeholder="News description.." required>' . $row['description'] . '</textarea>
 				
 			<label for="picture">Picture:</label>
-			<input type="file" id="picture" name="picture">
-						
-			<label for="archive">Archive:</label><br />
-            <input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> Yes &nbsp;&nbsp;
-			<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> No
+			<input type="file" id="picture" name="picture">';
 			
+			if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+				print '
+				<label for="archive">Archive:</label><br />
+				<input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> Yes &nbsp;&nbsp;
+				<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> No';
+			}
+			
+			print '
 			<hr>
 			
 			<input type="submit" value="Submit">
@@ -180,9 +202,16 @@
 						<th>Description</th>
 						<th>Date</th>
 						<th width="16"></th>
-						<th width="16"></th>
-						<th width="16"></th>
-						<th width="16"></th>
+						<th width="16"></th>';
+						if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+							print '
+							<th width="16"></th>';
+						}
+						if ($loggedInUserRole == 1) {
+							print '
+							<th width="16"></th>';
+						}
+					print '
 					</tr>
 				</thead>
 				<tbody>';
@@ -207,9 +236,15 @@
                             else if ($row['archive'] == 'N') { print '<img src="icons/active.png" alt="" title="" />'; }
 						print '
 						</td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>';
+						if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
+							print '<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>';
+						}
+						if ($loggedInUserRole == 1) {
+							print '
+							<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>';
+						}
+					print '	
 					</tr>';
 				}
 			print '

@@ -43,7 +43,7 @@
 			}
 			else {
 				# Redirect to homepage
-				header("Location: index.php?menu=1");
+				header("Location: index.php?menu=10");
 			}
 		}		
 		# Bad username or password

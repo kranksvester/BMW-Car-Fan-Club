@@ -19,6 +19,9 @@
                 else if ($_SESSION['user']['role'] == 2) {
                     print '<li><a href="index.php?menu=9">Editor</a></li>';
                 }
+                else if ($_SESSION['user']['role'] == 3) {
+                    print '<li><a href="index.php?menu=10">User</a></li>';
+                }
                 print '<li><a href="sign-out.php">Sign Out</a></li>';
             }
             
