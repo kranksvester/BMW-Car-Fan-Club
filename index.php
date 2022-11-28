@@ -79,7 +79,7 @@
       include("sign-in.php"); 
     }
     // Sign In
-    else if ($menu == 8) { 
+    else if ($menu == 8 || $menu == 9) { 
       include("admin.php"); 
     }
 

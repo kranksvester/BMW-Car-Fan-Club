@@ -176,12 +176,12 @@
 			<table>
 				<thead>
 					<tr>
-						<th width="16"></th>
-						<th width="16"></th>
-						<th width="16"></th>
 						<th>Title</th>
 						<th>Description</th>
 						<th>Date</th>
+						<th width="16"></th>
+						<th width="16"></th>
+						<th width="16"></th>
 						<th width="16"></th>
 					</tr>
 				</thead>
@@ -192,9 +192,6 @@
 				while($row = @mysqli_fetch_array($result)) {
 					print '
 					<tr>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>
 						<td>' . $row['title'] . '</td>
 						<td>';
 						if(strlen($row['description']) > 160) {
@@ -210,6 +207,9 @@
                             else if ($row['archive'] == 'N') { print '<img src="icons/active.png" alt="" title="" />'; }
 						print '
 						</td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>
 					</tr>';
 				}
 			print '

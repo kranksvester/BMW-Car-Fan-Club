@@ -1,5 +1,34 @@
 <?php
+	
+	#Add user
+	if (isset($_POST['_action_']) && $_POST['_action_'] == 'add_user') {
+		$_SESSION['message'] = '';
 
+		$pass_hash = password_hash(generatePassword(), PASSWORD_DEFAULT, ['cost' => 12]);
+
+		$newUsername = generateUsername($_POST['firstname'], $_POST['lastname']);
+
+		$query  = "SELECT COUNT(id) AS user_count FROM users";
+		$query .= " WHERE username='" .  $newUsername . "'";
+		$result = @mysqli_query($dbc, $query);
+		$row = @mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$count = $row['user_count'];
+		
+		if (!empty($row)) {
+			$newUsername .= $count;
+		}
+
+		$query  = "INSERT INTO users (firstname, lastname, email, username, password, country, city, address, dob)";
+		$query .= " VALUES ('" . $_POST['firstname'] . "', '" . $_POST['lastname'] . "', '" . $_POST['email'] . "', '" . $newUsername . "', '" . $pass_hash . "', '" . $_POST['country'] . "', '" . $_POST['city'] . "', '" . $_POST['address'] . "', '" . $_POST['dob'] . "' )";
+		$result = @mysqli_query($dbc, $query);
+
+		$ID = mysqli_insert_id($dbc);
+		
+		$_SESSION['message'] .= '<p>You successfully added user!</p>';
+		
+		# Redirect
+		header("Location: index.php?menu=8&action=1");
+	}
 	# Update user profile
 	if (isset($_POST['edit']) && $_POST['_action_'] == 'TRUE') {
 		$query  = "UPDATE users SET firstname='" . $_POST['firstname'] . "', lastname='" . $_POST['lastname'] . "', email='" . $_POST['email'] . "', username='" . $_POST['username'] . "', country='" . $_POST['country'] . "', archive='" . $_POST['archive'] . "'";
@@ -12,7 +41,7 @@
 		$_SESSION['message'] = '<p>You successfully changed user profile!</p>';
 		
 		# Redirect
-		header("Location: index.php?menu=7&action=1");
+		header("Location: index.php?menu=8&action=1");
 	}
 	# End update user profile
 	
@@ -27,7 +56,7 @@
 		$_SESSION['message'] = '<p>You successfully deleted user profile!</p>';
 		
 		# Redirect
-		header("Location: index.php?menu=7&action=1");
+		header("Location: index.php?menu=8&action=1");
 	}
 	# End delete user profile
 	
@@ -49,7 +78,50 @@
 		$_row = @mysqli_fetch_array($_result);
 		print '
 		<p><b>Country:</b> ' .$_row['nicename'] . '</p>
-		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>';
+		<p><b>Date:</b> ' . pickerDateToMysql($row['date']) . '</p>
+		<p><b>Role:</b> '; 
+			roleFromDatabaseToString($row['role']);
+		print '</p>';
+	}
+	#Add user 
+	else if (isset($_GET['add']) && $_GET['add'] != '') {
+		
+		print '
+		<h2>Add user profile</h2>
+		<form action="" id="registration_form" name="registration_form" method="POST">
+		<input type="hidden" id="_action_" name="_action_" value="add_user">
+			
+			<label for="fname">First Name:</label>
+			<input type="text" id="fname" name="firstname" value="" placeholder="Your name.." required>
+
+			<label for="lname">Last Name:</label>
+			<input type="text" id="lname" name="lastname" value="" placeholder="Your last natme.." required>
+				
+			<label for="email">Your E-mail:</label>
+			<input type="email" id="email" name="email"  value="" placeholder="Your e-mail.." required>
+			
+			<label for="country">Country:</label>
+			<select name="country" id="country">
+				<option value="">Please select</option>';
+				#Select all countries from database projektdb, table countries
+				$query  = "SELECT * FROM countries";
+				$result = @mysqli_query($dbc, $query);
+				while($row = @mysqli_fetch_array($result)) {
+					print '<option value="' . $row['iso'] . '">' . $row['nicename'] . '</option>';
+				}
+			print '
+			</select>
+			<label for="city">City: </label>
+			<input type="text" id="city" name="city" placeholder="Your city..." required>
+
+            <label for="address">Address: </label>
+			<input type="text" id="address" name="address" placeholder="Your current address..." required>
+
+            <label for="dob">Date of birth: </label>
+			<input type="date" id="dob" name="dob" placeholder="Your date of birth..." required>
+			<hr>
+			<input type="submit" value="Submit">
+		</form>';
 	}
 	#Edit user profile
 	else if (isset($_GET['edit']) && $_GET['edit'] != '') {
@@ -105,13 +177,14 @@
 			<table>
 				<thead>
 					<tr>
-						<th width="16"></th>
-						<th width="16"></th>
-						<th width="16"></th>
 						<th>First name</th>
 						<th>Last name</th>
 						<th>E mail</th>
-						<th>Država</th>
+						<th>Country</th>
+						<th>Role</th>
+						<th width="16"></th>
+						<th width="16"></th>
+						<th width="16"></th>
 						<th width="16"></th>
 					</tr>
 				</thead>
@@ -121,9 +194,6 @@
 				while($row = @mysqli_fetch_array($result)) {
 					print '
 					<tr>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>
 						<td><strong>' . $row['firstname'] . '</strong></td>
 						<td><strong>' . $row['lastname'] . '</strong></td>
 						<td>' . $row['email'] . '</td>
@@ -133,17 +203,24 @@
 							$_result = @mysqli_query($dbc, $_query);
 							$_row = @mysqli_fetch_array($_result, MYSQLI_ASSOC);
 							print $_row['nicename'] . '
-						</td>
+						</td>';
+						print '<td>';
+							roleFromDatabaseToString($row['role']);
+						print '</td>
 						<td>';
 							if ($row['archive'] == 'Y') { print '<img src="icons/inactive.png" alt="archive" title="" />'; }
                             else if ($row['archive'] == 'N') { print '<img src="icons/active.png" alt="active" title="" />'; }
 						print '
 						</td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;delete=' .$row['id']. '"><img src="icons/delete.png" alt="delete"></a></td>
 					</tr>';
 				}
 			print '
 				</tbody>
 			</table>
+			<a href="index.php?menu=' . $menu . '&amp;action=' . $action . '&amp;add=true" class="AddLink">Add user</a>
 		</div>';
 	}
 	

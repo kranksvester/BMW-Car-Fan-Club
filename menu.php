@@ -13,10 +13,15 @@
                 <li><a href="index.php?menu=7">Sign In</a></li>';
 		    }
             else if ($_SESSION['user']['valid'] == 'true') {
-                print '
-                <li><a href="index.php?menu=8">Admin</a></li>
-                <li><a href="sign-out.php">Sign Out</a></li>';
+                if ($_SESSION['user']['role'] == 1) {
+                    print '<li><a href="index.php?menu=8">Admin</a></li>';
+                }
+                else if ($_SESSION['user']['role'] == 2) {
+                    print '<li><a href="index.php?menu=9">Editor</a></li>';
+                }
+                print '<li><a href="sign-out.php">Sign Out</a></li>';
             }
+            
     print '
         </ul>
     ';

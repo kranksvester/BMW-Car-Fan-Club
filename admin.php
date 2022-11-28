@@ -1,5 +1,5 @@
 <?php 
-	if ($_SESSION['user']['valid'] == 'true') {
+	if ($_SESSION['user']['valid'] == 'true' && $_SESSION['user']['role'] == 1) {
 		if (!isset($action)) { $action = 1; }
 		print '
 		<h1>Administration</h1>
@@ -12,6 +12,32 @@
 			if ($action == 1) { include("admin/users.php"); }
 			# Admin News
 			else if ($action == 2) { include("admin/news.php"); }
+		print '
+		</div>';
+	}
+	else if ($_SESSION['user']['valid'] == 'true' && $_SESSION['user']['role'] == 2) {
+		if (!isset($action)) { $action = 2; }
+		print '
+		<h1>Editor</h1>
+		<div id="admin">
+			<ul>
+				<li><a href="index.php?menu=8&amp;action=2">News</a></li>
+			</ul>';
+			# Editor News
+			if ($action == 2) { include("admin/news.php"); }
+		print '
+		</div>';
+	}
+	else if ($_SESSION['user']['valid'] == 'true' && $_SESSION['user']['role'] == 3) {
+		if (!isset($action)) { $action = 2; }
+		print '
+		<h1>User</h1>
+		<div id="admin">
+			<ul>
+				<li><a href="index.php?menu=8&amp;action=2">News</a></li>
+			</ul>';
+			# User News
+			if ($action == 2) { include("admin/news.php"); }
 		print '
 		</div>';
 	}

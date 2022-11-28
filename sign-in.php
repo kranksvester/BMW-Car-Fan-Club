@@ -30,11 +30,22 @@
 			$_SESSION['user']['id'] = $row['id'];
 			$_SESSION['user']['firstname'] = $row['firstname'];
 			$_SESSION['user']['lastname'] = $row['lastname'];
+			$_SESSION['user']['role'] = $row['role'];
+			$role = $_SESSION['user']['role'];
 			$_SESSION['message'] = '<p>Welcome, ' . $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] . '</p>';
-			# Redirect to admin website
-			header("Location: index.php?menu=8");
-		}
-		
+			if($role == 1) {
+				# Redirect to admin/editor website
+				header("Location: index.php?menu=8");
+			} 
+			else if ($role == 2) {
+				# Redirect to editor website
+				header("Location: index.php?menu=9");
+			}
+			else {
+				# Redirect to homepage
+				header("Location: index.php?menu=1");
+			}
+		}		
 		# Bad username or password
 		else {
 			unset($_SESSION['user']);
