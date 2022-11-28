@@ -236,7 +236,7 @@
                             else if ($row['archive'] == 'N') { print '<img src="icons/active.png" alt="" title="" />'; }
 						print '
 						</td>
-						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/user.png" alt="user"></a></td>';
+						<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;id=' .$row['id']. '"><img src="icons/article.png" alt="user"></a></td>';
 						if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
 							print '<td><a href="index.php?menu='.$menu.'&amp;action='.$action.'&amp;edit=' .$row['id']. '"><img src="icons/edit.png" alt="edit"></a></td>';
 						}
