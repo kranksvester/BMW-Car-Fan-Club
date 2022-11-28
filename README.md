@@ -6,6 +6,6 @@
 | -------- | -------- |
 | Admin    | 1234     |
 | Editor   | 1234     |
-| User     | 1234     |
+| pperic   | 1234     |
 
 ### Database: projektdb (root/"")
