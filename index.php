@@ -66,20 +66,16 @@
     else if ($menu == 4) { 
       include("about-us.php"); 
     }
-    // Gallery
-    else if ($menu == 5) { 
-      include("gallery.php"); 
-    }
     // Register
-    else if ($menu == 6) { 
+    else if ($menu == 5) { 
       include("register.php"); 
     }
     // Sign In
-    else if ($menu == 7) { 
+    else if ($menu == 6) { 
       include("sign-in.php"); 
     }
     // Sign In
-    else if ($menu == 8 || $menu == 9 || $menu == 10) { 
+    else if ($menu == 7 || $menu == 8 || $menu == 9) { 
       include("admin.php"); 
     }
 
