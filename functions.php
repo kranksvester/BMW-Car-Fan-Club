@@ -17,6 +17,38 @@
 		
 	}
 
+	function selectedRoleOptions($role) {
+		if ($role == 1) {
+			return '
+				<option value="">Please select</option>
+				<option value="1" selected>Admin</option>
+				<option value="2">Editor</option>
+				<option value="3">User</option>
+			';
+		} else if ($role == 2) {
+			return '
+				<option value="">Please select</option>
+				<option value="1">Admin</option>
+				<option value="2" selected>Editor</option>
+				<option value="3">User</option>
+			';
+		} else if ($role == 2) {
+			return '
+				<option value="">Please select</option>
+				<option value="1">Admin</option>
+				<option value="2" selected>Editor</option>
+				<option value="3">User</option>
+			';
+		} else {
+			return '
+				<option value="">Please select</option>
+				<option value="1">Admin</option>
+				<option value="2">Editor</option>
+				<option value="3" selected>User</option>
+			';
+		}
+	}
+
 	function generatePassword($length = 20) {
 		$chars =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.
             '0123456789`-=~!@#$%^&*()_+,./<>?;:[]{}\|';

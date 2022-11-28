@@ -31,7 +31,8 @@
 	}
 	# Update user profile
 	if (isset($_POST['edit']) && $_POST['_action_'] == 'TRUE') {
-		$query  = "UPDATE users SET firstname='" . $_POST['firstname'] . "', lastname='" . $_POST['lastname'] . "', email='" . $_POST['email'] . "', username='" . $_POST['username'] . "', country='" . $_POST['country'] . "', archive='" . $_POST['archive'] . "'";
+		$query  = "UPDATE users SET firstname='" . $_POST['firstname'] . "', lastname='" . $_POST['lastname'] . "', email='" . $_POST['email'] . "', username='" . $_POST['username'] . "', country='" . $_POST['country'] . "',
+		role='" . $_POST['role'] . "', archive='" . $_POST['archive'] . "'";
         $query .= " WHERE id=" . (int)$_POST['edit'];
         $query .= " LIMIT 1";
         $result = @mysqli_query($dbc, $query);
@@ -163,6 +164,11 @@
 			print '
 			</select>
 			
+			<label for="role">Role:</label>
+			<select name="role" id="role">';
+				print selectedRoleOptions($row['role']);
+			print '
+			</select>
 			<label for="archive">Archive:</label><br />
             <input type="radio" name="archive" value="Y"'; if($row['archive'] == 'Y') { echo ' checked="checked"'; $checked_archive = true; } echo ' /> Yes &nbsp;&nbsp;
 			<input type="radio" name="archive" value="N"'; if($checked_archive == false) { echo ' checked="checked"'; } echo ' /> No
