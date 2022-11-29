@@ -15,13 +15,14 @@
 		}
 
 		$query  = "INSERT INTO news ($col)";
-		$query .= " VALUES ('" . htmlspecialchars($_POST['title'], ENT_QUOTES) . "', '" . htmlspecialchars($_POST['description'], ENT_QUOTES) . '';
+		$query .= " VALUES ('" . htmlspecialchars($_POST['title'], ENT_QUOTES) . "', '" . htmlspecialchars($_POST['description'], ENT_QUOTES) . '\'';
 
 		if ($loggedInUserRole == 1 || $loggedInUserRole == 2) {
-			$query .= "', '" . $_POST['archive'] . "'";
+			$query .= ", '" . $_POST['archive'] . "'";
 		}
 
 		$query .= ")";
+		print "<p>$query</p>";
 		$result = @mysqli_query($dbc, $query); var_dump($query);
 
 		$ID = mysqli_insert_id($dbc);
