@@ -35,15 +35,15 @@
 			$_SESSION['message'] = '<p>Welcome, ' . $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] . '</p>';
 			if($role == 1) {
 				# Redirect to admin/editor website
-				header("Location: index.php?menu=8");
+				header("Location: index.php?menu=7");
 			} 
 			else if ($role == 2) {
 				# Redirect to editor website
-				header("Location: index.php?menu=9");
+				header("Location: index.php?menu=8");
 			}
 			else {
 				# Redirect to homepage
-				header("Location: index.php?menu=10");
+				header("Location: index.php?menu=9");
 			}
 		}		
 		# Bad username or password
